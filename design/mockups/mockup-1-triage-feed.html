@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HouseFlow Mockup 1 — Urgent-First Triage Stream</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+      padding: 24px 16px 48px;
+      line-height: 1.45;
+    }
+    .phone-frame {
+      max-width: 420px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+    header {
+      padding: 16px 18px;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e293b;
+      color: #ffffff;
+    }
+    header h1 { font-size: 16px; font-weight: 700; }
+    header .sub { font-size: 12px; color: #cbd5e1; }
+    .sync-badge {
+      font-size: 11px;
+      background: #0f766e;
+      color: #ccfbf1;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .stream { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+    .section-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #6b7280;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .card {
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      padding: 14px;
+      background: #ffffff;
+    }
+    .card.urgent { border-left: 5px solid #dc2626; background: #fef2f2; }
+    .card.reminder { border-left: 5px solid #d97706; background: #fffbeb; }
+    .card.bathroom { border-left: 5px solid #2563eb; background: #eff6ff; }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .card-title { font-size: 15px; font-weight: 700; }
+    .pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pill.red { background: #fee2e2; color: #991b1b; }
+    .pill.amber { background: #fef3c7; color: #92400e; }
+    .pill.blue { background: #dbeafe; color: #1e40af; }
+    .pill.green { background: #dcfce7; color: #166534; }
+    .pill.gray { background: #f3f4f6; color: #374151; }
+    .meta { font-size: 12px; color: #4b5563; margin-bottom: 10px; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn {
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      background: #ffffff;
+      color: #111827;
+      cursor: pointer;
+    }
+    .btn.primary { background: #111827; color: #ffffff; border-color: #111827; }
+    .btn.blue { background: #1d4ed8; color: #ffffff; border-color: #1d4ed8; }
+    .quick-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px 14px 16px;
+      border-top: 1px solid #e5e7eb;
+      background: #f9fafb;
+    }
+    .rule-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 13px;
+    }
+    .rule-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .assumption-box {
+      max-width: 420px;
+      margin: 20px auto 0;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: #374151;
+    }
+    .assumption-box h2 { font-size: 13px; color: #111827; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+
+  <main class="phone-frame">
+    <header>
+      <div>
+        <h1>Maple St. House</h1>
+        <div class="sub">Monday, Nov 24 · 7:25 AM · 4 Housemates</div>
+      </div>
+      <span class="sync-badge">Live &lt; 1s</span>
+    </header>
+
+    <div class="stream">
+      <div class="section-label">Right Now (Blocking Morning Flow)</div>
+
+      <section class="card bathroom">
+        <div class="card-top">
+          <div class="card-title">Main Bathroom: In Use (12 min)</div>
+          <span class="pill blue">Queue: 1 waiting</span>
+        </div>
+        <div class="meta">Occupied by Housemate C since 7:13 AM · Next up: Housemate D</div>
+        <div class="actions">
+          <button class="btn blue" type="button">Join Queue (#2)</button>
+        </div>
+      </section>
+
+      <div class="section-label">Needs Attention Today</div>
+
+      <section class="card urgent">
+        <div class="card-top">
+          <div class="card-title">Garbage Day Tomorrow (Tue 7 AM)</div>
+          <span class="pill red">Tonight Reminder</span>
+        </div>
+        <div class="meta">Assigned to Housemate B · Reminder scheduled for 8:00 PM tonight to roll bins to curb.</div>
+        <div class="actions">
+          <button class="btn primary" type="button">Mark Trash Out</button>
+          <button class="btn" type="button">In Progress</button>
+        </div>
+      </section>
+
+      <section class="card reminder">
+        <div class="card-top">
+          <div class="card-title">Sink Dishes: Skillet &amp; 2 Pasta Bowls</div>
+          <span class="pill amber">Left 3h 20m ago</span>
+        </div>
+        <div class="meta">Logged by Housemate B · Daytime reminder queued if uncleaned past 2h house rule.</div>
+        <div class="actions">
+          <button class="btn primary" type="button">Mark Cleared (1 tap)</button>
+        </div>
+      </section>
+
+      <div class="section-label">Weekly House Rotation (Sun Deadline)</div>
+
+      <section class="card">
+        <div class="card-top">
+          <div class="card-title">Your Area: Kitchen Counters &amp; Stove</div>
+          <span class="pill gray">Open</span>
+        </div>
+        <div class="meta">Weekly cycle: Alex (You) this week · Housemate D next week · Reminder sent Mon 9 AM</div>
+        <div class="actions">
+          <button class="btn" type="button">Start (In Progress)</button>
+          <button class="btn primary" type="button">Mark Completed</button>
+        </div>
+      </section>
+
+      <div class="section-label">House Rules Quick Check</div>
+
+      <section class="card">
+        <div class="rule-row">
+          <span>Hallway lights off by 11:00 PM</span>
+          <span class="pill green">Confirmed last night</span>
+        </div>
+        <div class="rule-row">
+          <span>Dishes cleared within 2 hours</span>
+          <span class="pill amber">1 overdue item</span>
+        </div>
+      </section>
+    </div>
+
+    <div class="quick-strip">
+      <button class="btn primary" type="button">+ Log Dirty Dishes</button>
+      <button class="btn" type="button">+ Add Chore</button>
+    </div>
+  </main>
+
+  <section class="assumption-box">
+    <h2>What This Mockup Assumes About the User</h2>
+    <p>This layout assumes the student checks HouseFlow quickly on their phone between waking up and leaving for campus, so time-sensitive blockers like bathroom occupancy and overdue sink dishes must appear first without any navigation. It also assumes housemates prefer resolving or logging items in one or two taps directly from an urgency-sorted feed rather than browsing separate rooms or full weekly calendars.</p>
+  </section>
+
+</body>
+</html>

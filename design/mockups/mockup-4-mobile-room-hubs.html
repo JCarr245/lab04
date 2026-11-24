@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HouseFlow Mockup 4 — Calm Tabbed Mobile App (Light &amp; Dark)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      --page-bg: #e5e7eb;
+      --phone-bg: #f9fafb;
+      --surface: #ffffff;
+      --surface-soft: #f3f4f6;
+      --border: #e5e7eb;
+      --text: #111827;
+      --muted: #6b7280;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
+      --accent-text: #115e59;
+      --warn-bg: #fef3c7;
+      --warn-text: #92400e;
+      --alert-bg: #fee2e2;
+      --alert-text: #991b1b;
+      --ok-bg: #dcfce7;
+      --ok-text: #166534;
+
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--page-bg);
+      color: var(--text);
+      padding: 20px 12px 44px;
+      line-height: 1.45;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .sr-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Dark Mode Theme */
+    #theme-toggle:checked ~ .phone,
+    #theme-toggle:checked ~ .assumption-box {
+      --phone-bg: #0f172a;
+      --surface: #1e293b;
+      --surface-soft: #334155;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #2dd4bf;
+      --accent-soft: #134e4a;
+      --accent-text: #99f6e4;
+      --warn-bg: #422006;
+      --warn-text: #fde68a;
+      --alert-bg: #450a0a;
+      --alert-text: #fecaca;
+      --ok-bg: #052e16;
+      --ok-text: #86efac;
+    }
+
+    #theme-toggle:checked ~ .phone .theme-label::after { content: "Light"; }
+    .theme-label::after { content: "Dark"; }
+
+    .phone {
+      max-width: 390px;
+      margin: 0 auto;
+      background: var(--phone-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 16px 34px rgba(15, 23, 42, 0.14);
+      display: flex;
+      flex-direction: column;
+      min-height: 620px;
+    }
+
+    .app-header {
+      background: var(--surface);
+      padding: 16px 16px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .app-header h1 { font-size: 16px; font-weight: 700; }
+    .sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .header-right { display: flex; align-items: center; gap: 8px; }
+    .theme-label {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--text);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .content {
+      flex: 1;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Tab Panels (hidden by default, shown via radio checked) */
+    .tab-view { display: none; flex-direction: column; gap: 12px; }
+    #tab-today:checked ~ .phone .view-today { display: flex; }
+    #tab-supplies:checked ~ .phone .view-supplies { display: flex; }
+    #tab-chores:checked ~ .phone .view-chores { display: flex; }
+    #tab-rules:checked ~ .phone .view-rules { display: flex; }
+
+    .notice {
+      background: var(--warn-bg);
+      color: var(--warn-text);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-head h2 { font-size: 13px; font-weight: 700; }
+    .count { font-size: 11px; color: var(--muted); }
+
+    .list-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-top: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .list-row:first-of-type { border-top: none; padding-top: 2px; }
+    .list-row:last-of-type { padding-bottom: 0; }
+    .list-row strong { display: block; font-size: 13px; font-weight: 600; }
+    .list-row small { display: block; font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+    .pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .pill.ok { background: var(--ok-bg); color: var(--ok-text); }
+    .pill.warn { background: var(--warn-bg); color: var(--warn-text); }
+    .pill.alert { background: var(--alert-bg); color: var(--alert-text); }
+    .pill.accent { background: var(--accent-soft); color: var(--accent-text); }
+    .pill.soft { background: var(--surface-soft); color: var(--muted); }
+
+    .btn {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 11px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--text);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn.primary {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      width: 100%;
+      padding: 10px;
+      font-size: 13px;
+      border-radius: 11px;
+    }
+    #theme-toggle:checked ~ .phone .btn.primary { color: #042f2e; }
+
+    /* Bottom Tabs */
+    .tab-bar {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 6px 6px 10px;
+      gap: 4px;
+    }
+    .tab-btn {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      padding: 8px 4px;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #tab-today:checked ~ .phone .tab-btn[for="tab-today"],
+    #tab-supplies:checked ~ .phone .tab-btn[for="tab-supplies"],
+    #tab-chores:checked ~ .phone .tab-btn[for="tab-chores"],
+    #tab-rules:checked ~ .phone .tab-btn[for="tab-rules"] {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+    }
+
+    .assumption-box {
+      max-width: 390px;
+      margin: 16px auto 0;
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      font-size: 12px;
+    }
+    .assumption-box h2 { font-size: 12px; margin-bottom: 4px; }
+    .assumption-box p { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <!-- Pure-CSS State Controls -->
+  <input type="checkbox" id="theme-toggle" class="sr-input" aria-label="Toggle dark mode" />
+  <input type="radio" name="nav-tab" id="tab-today" class="sr-input" checked />
+  <input type="radio" name="nav-tab" id="tab-supplies" class="sr-input" />
+  <input type="radio" name="nav-tab" id="tab-chores" class="sr-input" />
+  <input type="radio" name="nav-tab" id="tab-rules" class="sr-input" />
+
+  <main class="phone">
+    <header class="app-header">
+      <div>
+        <h1>Maple St. House</h1>
+        <div class="sub">Alex (You) · Mon, Nov 24</div>
+      </div>
+      <div class="header-right">
+        <label for="theme-toggle" class="theme-label">Mode: </label>
+      </div>
+    </header>
+
+    <div class="content">
+      <!-- TAB 1: TODAY -->
+      <div class="tab-view view-today">
+        <div class="notice">
+          <span><strong>Trash Tonight:</strong> Bins out before Tue 7 AM (Housemate B)</span>
+          <button class="btn" type="button">Done</button>
+        </div>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>Dirty Dishes in Sink</h2>
+            <span class="count">2 active</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Skillet &amp; 2 bowls</strong>
+              <small>Housemate B · 3h 20m ago · Reminder sent</small>
+            </div>
+            <button class="btn" type="button">Clear</button>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Coffee press &amp; mug</strong>
+              <small>Alex (You) · 25m ago</small>
+            </div>
+            <button class="btn" type="button">Clear</button>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>Your Weekly Area</h2>
+            <span class="pill accent">In Progress</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Kitchen Counters &amp; Fridge</strong>
+              <small>Rotates Sunday to Housemate D</small>
+            </div>
+            <button class="btn" type="button">Complete</button>
+          </div>
+        </section>
+
+        <button class="btn primary" type="button">+ Log Dirty Dishes or Chore</button>
+      </div>
+
+      <!-- TAB 2: SUPPLIES -->
+      <div class="tab-view view-supplies">
+        <section class="card">
+          <div class="card-head">
+            <h2>Shared House Supplies</h2>
+            <span class="count">2 need restock</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Trash Bags</strong>
+              <small>Out · Flagged by Housemate B</small>
+            </div>
+            <button class="btn" type="button">Restocked</button>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Toilet Paper</strong>
+              <small>Low · 2 rolls left</small>
+            </div>
+            <button class="btn" type="button">Restocked</button>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Dish Soap</strong>
+              <small>Stocked · By Alex (You)</small>
+            </div>
+            <span class="pill ok">Stocked</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Paper Towels</strong>
+              <small>Stocked · By Housemate C</small>
+            </div>
+            <span class="pill ok">Stocked</span>
+          </div>
+        </section>
+
+        <button class="btn primary" type="button">+ Flag Low Supply</button>
+      </div>
+
+      <!-- TAB 3: CHORES & REPAIRS -->
+      <div class="tab-view view-chores">
+        <section class="card">
+          <div class="card-head">
+            <h2>Weekly House &amp; Exterior</h2>
+            <span class="count">Cycles Sun</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Kitchen &amp; Fridge Cleanout</strong>
+              <small>Alex (You) → Next: D</small>
+            </div>
+            <span class="pill accent">Doing</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Bathroom Scrub &amp; Vanity</strong>
+              <small>Housemate C → Next: You</small>
+            </div>
+            <span class="pill ok">Done</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Living Room &amp; Hall Vacuum</strong>
+              <small>Housemate D → Next: B</small>
+            </div>
+            <span class="pill soft">Open</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Porch, Yard &amp; Leaves</strong>
+              <small>Housemate B → Next: C</small>
+            </div>
+            <span class="pill warn">Due Tonight</span>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <h2>Repairs &amp; Landlord Log</h2>
+            <span class="count">2 open</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Kitchen sink P-trap leak</strong>
+              <small>Reported to landlord Nov 22</small>
+            </div>
+            <span class="pill accent">Reported</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Porch floodlight bulb out</strong>
+              <small>Needs replacement bulb</small>
+            </div>
+            <span class="pill warn">Open</span>
+          </div>
+        </section>
+
+        <button class="btn primary" type="button">+ Report Repair Issue</button>
+      </div>
+
+      <!-- TAB 4: HOUSE RULES -->
+      <div class="tab-view view-rules">
+        <section class="card">
+          <div class="card-head">
+            <h2>House Rules &amp; Night Check</h2>
+            <span class="count">Daily habits</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Hallway lights off by 11:00 PM</strong>
+              <small>Confirmed last night</small>
+            </div>
+            <span class="pill ok">Checked</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Dishes cleared within 2 hours</strong>
+              <small>1 item overdue in sink</small>
+            </div>
+            <span class="pill warn">1 Overdue</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Front &amp; back doors locked</strong>
+              <small>Evening check</small>
+            </div>
+            <span class="pill ok">Locked</span>
+          </div>
+          <div class="list-row">
+            <div>
+              <strong>Fridge cleanout before trash night</strong>
+              <small>Weekly Monday evening</small>
+            </div>
+            <span class="pill soft">Pending</span>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <nav class="tab-bar" aria-label="App tabs">
+      <label for="tab-today" class="tab-btn">Today</label>
+      <label for="tab-supplies" class="tab-btn">Supplies</label>
+      <label for="tab-chores" class="tab-btn">Chores</label>
+      <label for="tab-rules" class="tab-btn">Rules</label>
+    </nav>
+  </main>
+
+  <section class="assumption-box">
+    <h2>What This Mockup Assumes About the User</h2>
+    <p>This calmer tabbed layout assumes the student feels overwhelmed by seeing every house category stacked on one screen and prefers focusing only on what needs action today while keeping supplies, rotating chores, repairs, and house rules one tap away. It also assumes housemates use the app in both daylight and late-night settings, so a simple light/dark mode switch reduces visual strain.</p>
+  </section>
+
+</body>
+</html>

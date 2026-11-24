@@ -1,0 +1,15 @@
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Secrets & Environment variables
+.env
+.env.*
+!.env.example
+
+# Dependencies & Next.js builds
+node_modules/
+.next/
+out/
+dist/
+.vercel/

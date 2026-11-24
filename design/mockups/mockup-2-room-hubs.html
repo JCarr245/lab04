@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HouseFlow Mockup 2 — Spatial Room-by-Room Hub</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 24px 16px 48px;
+      line-height: 1.45;
+    }
+    .shell {
+      max-width: 980px;
+      margin: 0 auto;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+    }
+    .topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #cbd5e1;
+      padding: 14px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand h1 { font-size: 18px; font-weight: 800; }
+    .brand p { font-size: 12px; color: #475569; }
+    .quick-bar { display: flex; flex-wrap: wrap; gap: 8px; }
+    .btn {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #0f172a;
+      cursor: pointer;
+    }
+    .btn.accent { background: #0f766e; color: #ffffff; border-color: #0f766e; }
+    .btn.dark { background: #0f172a; color: #ffffff; border-color: #0f172a; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      padding: 18px;
+    }
+    .panel {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 8px;
+    }
+    .panel-header h2 { font-size: 15px; font-weight: 700; }
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .tag.open { background: #dcfce7; color: #166534; }
+    .tag.warn { background: #fef3c7; color: #92400e; }
+    .tag.alert { background: #fee2e2; color: #991b1b; }
+    .tag.progress { background: #dbeafe; color: #1e40af; }
+    .item {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .item small { display: block; color: #64748b; font-size: 11px; margin-top: 2px; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid #e2e8f0; }
+    th { color: #64748b; font-weight: 700; font-size: 11px; text-transform: uppercase; }
+    .garbage-banner {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #9a3412;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .rules-footer {
+      margin: 0 18px 18px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .rules-footer h3 { font-size: 13px; margin-bottom: 8px; }
+    .rules-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .rule-chip {
+      border: 1px solid #cbd5e1;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      background: #f8fafc;
+    }
+    .assumption-box {
+      max-width: 980px;
+      margin: 20px auto 0;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #334155;
+    }
+    .assumption-box h2 { font-size: 13px; color: #0f172a; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+
+  <main class="shell">
+    <div class="topbar">
+      <div class="brand">
+        <h1>HouseFlow · Maple St. Rental (Invite Code: MPL-402)</h1>
+        <p>Signed in as Alex (You) · Real-time sync active (&lt; 1s) · Monday, Nov 24</p>
+      </div>
+      <div class="quick-bar">
+        <button class="btn accent" type="button">+ Log Dirty Dishes</button>
+        <button class="btn" type="button">+ New Chore</button>
+        <button class="btn dark" type="button">Claim Bathroom</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Room 1: Kitchen & Sink -->
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Kitchen &amp; Sink</h2>
+          <span class="tag warn">2 Uncleaned</span>
+        </div>
+        <div class="item">
+          <div>
+            <strong>Cast-iron skillet &amp; 2 bowls</strong>
+            <small>Left by Housemate B · 3h 20m ago · Daytime reminder sent 1:15 PM</small>
+          </div>
+          <button class="btn" type="button">Cleared</button>
+        </div>
+        <div class="item">
+          <div>
+            <strong>Coffee French press &amp; mug</strong>
+            <small>Left by Alex (You) · 25m ago · Reminder if uncleaned later today</small>
+          </div>
+          <button class="btn" type="button">Cleared</button>
+        </div>
+        <div class="item">
+          <div>
+            <strong>Wipe stove &amp; kitchen counters</strong>
+            <small>Weekly chore · Assigned: Alex (You)</small>
+          </div>
+          <span class="tag progress">In Progress</span>
+        </div>
+      </section>
+
+      <!-- Room 2: Shared Bathroom -->
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Shared Bathroom</h2>
+          <span class="tag open">Open Now</span>
+        </div>
+        <div class="item">
+          <div>
+            <strong>Next Up in Morning Queue: Housemate D</strong>
+            <small>Waiting since 7:18 AM · Ready for morning shower</small>
+          </div>
+          <button class="btn dark" type="button">Start Shower</button>
+        </div>
+        <div class="item">
+          <div>
+            <strong>2nd in Queue: Alex (You)</strong>
+            <small>Target: leave by 7:45 AM for 8:00 AM lecture</small>
+          </div>
+          <button class="btn" type="button">Leave Queue</button>
+        </div>
+        <div class="item">
+          <div>
+            <strong>Scrub tub &amp; restock toilet paper</strong>
+            <small>Weekly chore · Assigned: Housemate C</small>
+          </div>
+          <span class="tag open">Completed</span>
+        </div>
+      </section>
+
+      <!-- Room 3: Weekly Rotation & Garbage Day -->
+      <section class="panel" style="grid-column: 1 / -1;">
+        <div class="panel-header">
+          <h2>Weekly House Rotation &amp; Trash Schedule</h2>
+          <span class="tag alert">Garbage Night Tonight</span>
+        </div>
+        <div class="garbage-banner">
+          <span><strong>Night-Before Garbage Reminder:</strong> Pickup is Tuesday 7:00 AM — Housemate B is reminded at 8:00 PM tonight to roll bins out.</span>
+          <button class="btn" type="button">Mark Trash Done</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>House Area</th>
+              <th>This Week (Nov 24)</th>
+              <th>Next Week (Dec 1)</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Kitchen Counters &amp; Sink</td>
+              <td>Alex (You)</td>
+              <td>Housemate D</td>
+              <td><span class="tag progress">In Progress</span></td>
+            </tr>
+            <tr>
+              <td>Shared Bathroom &amp; Mirror</td>
+              <td>Housemate C</td>
+              <td>Alex (You)</td>
+              <td><span class="tag open">Completed</span></td>
+            </tr>
+            <tr>
+              <td>Living Room &amp; Hallway Vacuum</td>
+              <td>Housemate D</td>
+              <td>Housemate B</td>
+              <td><span class="tag warn">Open</span></td>
+            </tr>
+            <tr>
+              <td>Garbage &amp; Recycling Bins</td>
+              <td>Housemate B</td>
+              <td>Housemate C</td>
+              <td><span class="tag alert">Due Tonight</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <section class="rules-footer">
+      <h3>House Rules &amp; Nightly Checklist</h3>
+      <div class="rules-list">
+        <span class="rule-chip">[x] Hallway lights off by 11:00 PM</span>
+        <span class="rule-chip">[ ] Dishes cleared within 2 hours</span>
+        <span class="rule-chip">[x] Quiet hours 11:00 PM – 7:00 AM</span>
+      </div>
+    </section>
+  </main>
+
+  <section class="assumption-box">
+    <h2>What This Mockup Assumes About the User</h2>
+    <p>This layout assumes the student wants a full-house overview—such as checking from a laptop after class or a shared kitchen view—where they can see every room's status and the fair weekly rotation side by side. It also assumes housemates care about transparency across all roommates' assignments and prefer a persistent quick-log bar at the top to jump straight to adding dishes, chores, or claiming the bathroom.</p>
+  </section>
+
+</body>
+</html>
