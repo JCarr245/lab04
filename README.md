@@ -1,6 +1,6 @@
 # Lab 04: HouseFlow v1
 
-**Live app:** *(Pending Vercel deployment — add URL after deploying `app/`)*
+**Live app:** [https://lab04-cyan.vercel.app](https://lab04-cyan.vercel.app)
 
 ## Contents
 
